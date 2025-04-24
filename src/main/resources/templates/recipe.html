@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Recipe Detail</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="card mb-4">
+        <div class="card-body pb-0">
+            <h3 class="card-title" th:text="${recipe.title}">Recipe Title</h3>
+            <span class="badge bg-info mb-2" th:if="${recipe.categoryName != null}" th:text="${recipe.categoryName}">Category</span>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+                <span>By</span>
+                <b th:text="${recipe.author}">Chef Name</b>
+                <span th:text="${recipe.prettyCreateTime}">1 minute ago</span>
+            </h6>
+            <div class="mb-3">
+                <span class="badge bg-primary" th:text="${recipe.difficulty}">MEDIUM</span>
+                <span class="badge bg-secondary" th:text="${recipe.cookingTime + ' min'}">30 min</span>
+                <span class="badge bg-success" th:text="${recipe.servingSize + ' servings'}">4 servings</span>
+            </div>
+        </div>
+        <div class="card-body py-2">
+            <div class="row">
+                <div class="col-md-6">
+                    <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel" th:if="${recipe.images != null && !recipe.images.isEmpty()}">
+                        <div class="carousel-inner">
+                            <div class="carousel-item" th:each="image, iterStat : ${recipe.images}" th:classappend="${iterStat.first} ? 'active'">
+                                <img th:src="@{${image.path}}" class="d-block w-100 img-fluid" alt="Recipe image">
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#recipeCarousel" data-bs-slide="prev" th:if="${recipe.images.size() > 1}">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#recipeCarousel" data-bs-slide="next" th:if="${recipe.images.size() > 1}">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h5>Ingredients</h5>
+                    <div class="card-text mb-4" th:utext="${#strings.replace(#strings.escapeXml(recipe.ingredients),'&#10;','<br/>')}">Ingredients list</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body py-2">
+            <h5>Instructions</h5>
+            <div class="card-text mb-4" th:utext="${#strings.replace(#strings.escapeXml(recipe.instructions),'&#10;','<br/>')}">Cooking instructions</div>
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5>Comments</h5>
+        </div>
+        <div class="card-body">
+            <div class="mb-4" th:each="comment : ${recipe.comments}">
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                    <span>By</span>
+                    <b th:text="${comment.author}">User Name</b>
+                    <span th:text="${comment.prettyCreateTime}">1 minute ago</span>
+                </h6>
+                <p class="card-text" th:text="${comment.text}">Comment text</p>
+                <hr th:if="${!commentStat.last}">
+            </div>
+
+            <!-- Comment Form -->
+            <div class="mt-4">
+                <h6>Add a Comment</h6>
+                <form th:action="@{/recipe/{id}/comment(id=${recipe.id})}" th:object="${commentForm}" method="post">
+                    <div class="mb-3">
+                        <label for="author" class="form-label">Your Name</label>
+                        <input id="author" type="text" class="form-control" th:field="*{author}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="text" class="form-label">Your Comment</label>
+                        <textarea id="text" class="form-control" th:field="*{text}" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Comment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
