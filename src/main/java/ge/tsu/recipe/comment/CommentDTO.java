@@ -16,10 +16,10 @@ public class CommentDTO {
     private String prettyCreateTime;
 
     public static CommentDTO fromComment(Comment comment) {
-        CommentDTO dto = new CommentDTO();
-        BeanUtils.copyProperties(comment, dto);
-        dto.setPrettyCreateTime(formatPrettyTime(comment.getCreateTime()));
-        return dto;
+        return null;
+    }
+
+    private void setPrettyCreateTime(String s) {
     }
 
     private static String formatPrettyTime(LocalDateTime time) {

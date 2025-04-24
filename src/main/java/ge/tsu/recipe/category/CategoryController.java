@@ -1,7 +1,6 @@
 package ge.tsu.recipe.category;
 
 import ge.tsu.recipe.recipe.RecipeService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -11,11 +10,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class CategoryController {
 
     private final RecipeService recipeService;
     private final CategoryService categoryService;
+
+    public CategoryController(RecipeService recipeService, CategoryService categoryService) {
+        this.recipeService = recipeService;
+        this.categoryService = categoryService;
+    }
 
     @GetMapping("/category/{id}")
     public String categoryPage(@PathVariable Long id, Pageable pageable, Model model) {

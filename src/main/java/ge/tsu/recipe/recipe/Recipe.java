@@ -1,7 +1,8 @@
 package ge.tsu.recipe.recipe;
 
-
 import ge.tsu.recipe.category.Category;
+import ge.tsu.recipe.category.Category;
+import ge.tsu.recipe.comment.Comment;
 import ge.tsu.recipe.image.Image;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -55,15 +56,16 @@ public class Recipe {
     @JoinColumn(name = "CATEGORY_ID")
     private Category category;
 
-    @OneToMany(mappedBy = "recipe",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    private List<Image> images = new ArrayList<Image>();
+
+    @OneToMany(mappedBy = "recipe",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<Comment>();
 
     @PrePersist
     protected void onCreate() {

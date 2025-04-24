@@ -2,15 +2,11 @@ package ge.tsu.recipe.comment;
 
 import ge.tsu.recipe.recipe.Recipe;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "COMMENTS")
-@Getter
-@Setter
+
 public class Comment {
 
     @Id
@@ -34,5 +30,8 @@ public class Comment {
     @PrePersist
     protected void onCreate() {
         createTime = LocalDateTime.now();
+    }
+
+    public LocalDateTime getCreateTime() {
     }
 }
