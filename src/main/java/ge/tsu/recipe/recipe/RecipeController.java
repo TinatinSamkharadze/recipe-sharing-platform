@@ -1,9 +1,7 @@
 package ge.tsu.recipe.recipe;
 
+import ge.tsu.recipe.category.CategoryService;
 import ge.tsu.recipe.comment.CommentForm;
-import ge.tsu.recipe.recipe.RecipeDTO;
-import ge.tsu.recipe.recipe.RecipeForm;
-import ge.tsu.recipe.recipe.RecipeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;

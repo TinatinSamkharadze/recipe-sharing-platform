@@ -1,10 +1,9 @@
 package ge.tsu.recipe.recipe;
 
+import ge.tsu.recipe.category.Category;
+import ge.tsu.recipe.category.CategoryRepository;
+import ge.tsu.recipe.image.Image;
 import ge.tsu.recipe.image.ImageService;
-import ge.tsu.recipe.recipe.Recipe;
-import ge.tsu.recipe.recipe.RecipeDTO;
-import ge.tsu.recipe.recipe.RecipeForm;
-import ge.tsu.recipe.recipe.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

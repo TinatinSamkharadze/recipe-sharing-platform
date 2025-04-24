@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Footer</title>
 </head>
 <body>
-
+<footer th:fragment="footer" class="bg-dark text-light py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>Recipe Sharing Platform</h5>
+                <p>Share your favorite recipes with the world.</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <ul class="list-unstyled">
+                    <li><a th:href="@{/}" class="text-light">Home</a></li>
+                    <li><a th:href="@{/recipe/new}" class="text-light">Create Recipe</a></li>
+                    <li><a th:href="@{/about}" class="text-light">About</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Contact Us</h5>
+                <p>Email: contact@recipeplatform.com</p>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col text-center">
+                <p class="mb-0">&copy; 2025 Recipe Sharing Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
 </html>
