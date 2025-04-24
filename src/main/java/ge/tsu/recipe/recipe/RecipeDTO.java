@@ -2,7 +2,7 @@ package ge.tsu.recipe.recipe;
 
 import ge.tsu.recipe.comment.CommentDTO;
 import ge.tsu.recipe.image.ImageDTO;
-import ge.tsu.recipe.recipe.Recipe;
+import ge.tsu.recipe.util.TimeFormatter;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
@@ -40,7 +40,7 @@ public class RecipeDTO {
 
         recipeDTO.setImages(recipe.getImages().stream().map(ImageDTO::fromImage).collect(Collectors.toList()));
         recipeDTO.setComments(recipe.getComments().stream().map(CommentDTO::fromComment).collect(Collectors.toList()));
-        recipeDTO.setPrettyCreateTime(prettyFormat(recipe.getCreateTime()));
+        recipeDTO.setPrettyCreateTime(TimeFormatter.prettyFormat(recipe.getCreateTime()));
         return recipeDTO;
     }
 }

@@ -7,4 +7,91 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Create
+    <h1>Create New Recipe</h1>
+
+    <form th:action="@{/recipe/new}" th:object="${recipeForm}" method="post" enctype="multipart/form-data">
+        <div class="card mb-4">
+            <div class="card-body">
+                <!-- Basic Recipe Information -->
+                <div class="mb-3">
+                    <label for="title" class="form-label">Recipe Title</label>
+                    <input type="text" class="form-control" id="title" th:field="*{title}" required>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="author" class="form-label">Author</label>
+                    <input type="text" class="form-control" id="author" th:field="*{author}" required>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="category" class="form-label">Category</label>
+                        <select class="form-select" id="category" th:field="*{categoryId}">
+                            <option value="">Select Category</option>
+                            <option th:each="category : ${categories}"
+                                    th:value="${category.id}"
+                                    th:text="${category.name}">Category Name</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 mb-3">
+                        <label for="difficulty" class="form-label">Difficulty</label>
+                        <select class="form-select" id="difficulty" th:field="*{difficulty}" required>
+                            <option value="">Select Difficulty</option>
+                            <option th:each="level : ${difficultyLevels}"
+                                    th:value="${level}"
+                                    th:text="${level}">Difficulty Level</option>
+                        </select>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('difficulty')}" th:errors="*{difficulty}"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="cookingTime" class="form-label">Cooking Time (minutes)</label>
+                        <input type="number" class="form-control" id="cookingTime" th:field="*{cookingTime}" min="1" required>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('cookingTime')}" th:errors="*{cookingTime}"></div>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="servingSize" class="form-label">Serving Size</label>
+                        <input type="number" class="form-control" id="servingSize" th:field="*{servingSize}" min="1" required>
+                        <div class="invalid-feedback" th:if="${#fields.hasErrors('servingSize')}" th:errors="*{servingSize}"></div>
+                    </div>
+                </div>
+
+                <!-- Ingredients -->
+                <div class="mb-3">
+                    <label for="ingredients" class="form-label">Ingredients</label>
+                    <textarea class="form-control" id="ingredients" th:field="*{ingredients}" rows="5" required
+                              placeholder="Enter each ingredient on a new line"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></div>
+                </div>
+
+                <!-- Instructions -->
+                <div class="mb-3">
+                    <label for="instructions" class="form-label">Instructions</label>
+                    <textarea class="form-control" id="instructions" th:field="*{instructions}" rows="10" required
+                              placeholder="Enter step-by-step instructions"></textarea>
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></div>
+                </div>
+
+                <!-- Image Upload -->
+                <div class="mb-3">
+                    <label for="images" class="form-label">Images</label>
+                    <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple>
+                    <div class="form-text">Upload one or more images of your recipe (optional)</div>
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Save Recipe</button>
+                <a th:href="@{/}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

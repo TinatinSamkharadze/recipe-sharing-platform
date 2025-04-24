@@ -90,4 +90,15 @@ public class RecipeService {
     public long totalNumberOfRecipesByCategory(Long categoryId) {
         return recipeRepository.countByCategoryId(categoryId);
     }
+
+    public List<RecipeDTO> searchRecipes(String query, Pageable pageable) {
+        return recipeRepository.searchRecipes(query, pageable)
+                .stream()
+                .map(RecipeDTO::fromRecipe)
+                .toList();
+    }
+
+    public long countSearchResults(String query) {
+        return recipeRepository.countSearchResults(query);
+    }
 }

@@ -1,0 +1,79 @@
+/* Custom styles for the Recipe Sharing Platform */
+
+/* General styling */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Card styling */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Recipe image styling */
+.carousel-item img {
+    border-radius: 0.25rem;
+    object-fit: cover;
+    height: 300px;
+}
+
+.img-thumbnail {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+/* Badge styling */
+.badge {
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+}
+
+/* Comment styling */
+.comment-author {
+    font-weight: 600;
+}
+
+.comment-time {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* Form styling */
+textarea {
+    resize: vertical;
+}
+
+/* Navigation styling */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* Footer styling */
+footer {
+    margin-top: 3rem;
+}
+
+/* Ensure main content has minimum height for short pages */
+.container.py-4 {
+    min-height: calc(100vh - 300px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .carousel-item img {
+        height: 200px;
+    }
+}

@@ -1,5 +1,6 @@
 package ge.tsu.recipe.home;
 
+import ge.tsu.recipe.category.CategoryService;
 import ge.tsu.recipe.recipe.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

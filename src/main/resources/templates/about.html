@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>About Recipe Sharing Platform</title>
 </head>
 <body>
+<div layout:fragment="content">
+    <div class="card mb-4">
+        <div class="card-body">
+            <h1 class="card-title">About Recipe Sharing Platform</h1>
+            <p class="card-text">
+                Welcome to our Recipe Sharing Platform! This platform was created to bring together food enthusiasts from
+                around the world to share their favorite recipes, cooking tips, and culinary experiences.
+            </p>
 
+            <h2 class="h4 mt-4">Our Mission</h2>
+            <p class="card-text">
+                Our mission is to create a vibrant community where cooking enthusiasts can share their passion for food,
+                discover new recipes, and learn from one another. We believe that good food brings people together, and
+                we're committed to making cooking more accessible and enjoyable for everyone.
+            </p>
+
+            <h2 class="h4 mt-4">Features</h2>
+            <ul>
+                <li>Browse recipes by category</li>
+                <li>Share your own recipes with the community</li>
+                <li>Add step-by-step instructions and images</li>
+                <li>Comment on recipes and share your experience</li>
+                <li>Save your favorite recipes for later</li>
+            </ul>
+
+            <h2 class="h4 mt-4">Join Our Community</h2>
+            <p class="card-text">
+                Whether you're a professional chef or a home cook, we welcome your contribution to our growing recipe collection.
+                Start by creating an account and sharing your favorite recipes today!
+            </p>
+
+            <div class="mt-4">
+                <a th:href="@{/recipe/new}" class="btn btn-primary">Share Your Recipe</a>
+                <a th:href="@{/}" class="btn btn-outline-secondary ms-2">Browse Recipes</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
