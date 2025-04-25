@@ -14,7 +14,6 @@ public class RecipeApplication implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Map uploads directory to static resource URL path
         registry.addResourceHandler("/uploads/**")
                 .addResourceLocations("file:${app.upload.dir:/tmp/recipe-uploads}/");
     }

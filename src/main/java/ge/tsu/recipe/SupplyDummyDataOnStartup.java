@@ -5,7 +5,7 @@ import ge.tsu.recipe.category.CategoryRepository;
 import ge.tsu.recipe.recipe.Recipe;
 import ge.tsu.recipe.recipe.RecipeRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,11 +13,17 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SupplyDummyDataOnStartup implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
+
+    @Autowired
+    public SupplyDummyDataOnStartup(CategoryRepository categoryRepository, RecipeRepository recipeRepository) {
+        this.categoryRepository = categoryRepository;
+        this.recipeRepository = recipeRepository;
+    }
 
     @Override
     @Transactional

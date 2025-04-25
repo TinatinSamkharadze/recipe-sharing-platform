@@ -12,17 +12,19 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Page<Recipe> findByCategoryId(Long categoryId, Pageable pageable);
     long countByCategoryId(Long categoryId);
 
-    @Query("SELECT r FROM Recipe r WHERE " +
-            "LOWER(r.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(r.author) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(r.ingredients) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(r.instructions) LIKE LOWER(CONCAT('%', :query, '%'))")
+    @Query(value = "SELECT * FROM RECIPES r WHERE " +
+            "LOWER(r.TITLE) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(r.AUTHOR) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(r.INGREDIENTS) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(r.INSTRUCTIONS) LIKE LOWER(CONCAT('%', :query, '%'))",
+            nativeQuery = true)
     Page<Recipe> searchRecipes(@Param("query") String query, Pageable pageable);
 
-    @Query("SELECT COUNT(r) FROM Recipe r WHERE " +
-            "LOWER(r.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(r.author) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(r.ingredients) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
-            "LOWER(r.instructions) LIKE LOWER(CONCAT('%', :query, '%'))")
+    @Query(value = "SELECT COUNT(*) FROM RECIPES r WHERE " +
+            "LOWER(r.TITLE) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(r.AUTHOR) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(r.INGREDIENTS) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
+            "LOWER(r.INSTRUCTIONS) LIKE LOWER(CONCAT('%', :query, '%'))",
+            nativeQuery = true)
     long countSearchResults(@Param("query") String query);
 }

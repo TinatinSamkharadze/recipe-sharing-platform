@@ -3,7 +3,7 @@ package ge.tsu.recipe.recipe;
 import ge.tsu.recipe.category.CategoryService;
 import ge.tsu.recipe.comment.CommentForm;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,11 +15,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class RecipeController {
 
     private final RecipeService recipeService;
     private final CategoryService categoryService;
+    @Autowired
+    public RecipeController(RecipeService recipeService, CategoryService categoryService) {
+        this.recipeService = recipeService;
+        this.categoryService = categoryService;
+    }
+
 
     @GetMapping("/recipe/{id}")
     public String recipe(@PathVariable Long id, Model model) {

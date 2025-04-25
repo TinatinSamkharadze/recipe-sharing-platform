@@ -6,9 +6,15 @@ import org.springframework.beans.BeanUtils;
 @Data
 public class CategoryDTO {
     private Long id;
-    private String name;
-    private String description;
-    private int recipeCount;
+
+    public void setRecipeCount(int recipeCount) {
+        this.recipeCount = recipeCount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public String getName() {
         return name;
     }
@@ -17,13 +23,10 @@ public class CategoryDTO {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    private String name;
+    private String description;
+    private int recipeCount;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public static CategoryDTO fromCategory(Category category) {
         CategoryDTO dto = new CategoryDTO();
@@ -35,4 +38,6 @@ public class CategoryDTO {
 
         return dto;
     }
+
+
 }

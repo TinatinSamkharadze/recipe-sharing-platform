@@ -1,7 +1,6 @@
 package ge.tsu.recipe.recipe;
 
 import ge.tsu.recipe.category.Category;
-import ge.tsu.recipe.category.Category;
 import ge.tsu.recipe.comment.Comment;
 import ge.tsu.recipe.image.Image;
 import jakarta.persistence.*;
@@ -18,6 +17,17 @@ import java.util.List;
 @Getter
 @Setter
 public class Recipe {
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -71,5 +81,97 @@ public class Recipe {
     protected void onCreate() {
         createTime = LocalDateTime.now();
         excerpt = StringUtils.abbreviate(instructions, 150);
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
+    }
+
+    public void setCookingTime(Integer cookingTime) {
+        this.cookingTime = cookingTime;
+    }
+
+    public void setServingSize(Integer servingSize) {
+        this.servingSize = servingSize;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public Integer getCookingTime() {
+        return cookingTime;
+    }
+
+    public Integer getServingSize() {
+        return servingSize;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public String getExcerpt() {
+        return excerpt;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
     }
 }

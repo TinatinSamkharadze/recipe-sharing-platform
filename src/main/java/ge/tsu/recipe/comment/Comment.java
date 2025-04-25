@@ -2,8 +2,11 @@ package ge.tsu.recipe.comment;
 
 import ge.tsu.recipe.recipe.Recipe;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
+@Data
 @Entity
 @Table(name = "COMMENTS")
 
@@ -33,5 +36,42 @@ public class Comment {
     }
 
     public LocalDateTime getCreateTime() {
+        return null;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }

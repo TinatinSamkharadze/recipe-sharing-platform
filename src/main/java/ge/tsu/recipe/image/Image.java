@@ -21,4 +21,28 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "RECIPE_ID", nullable = false)
     private Recipe recipe;
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
 }
