@@ -1,58 +1,96 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Recipe Sharing Platform</title>
+    <meta charset="UTF-8">
+    <title>Recipe Share</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div layout:fragment="content">
-    <div class="row row-cols-1 g-3">
-        <div class="col" th:each="recipe : ${recipes}">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${recipe.title}">Recipe Title</h5>
-                    <span class="badge bg-info mb-2" th:if="${recipe.categoryName != null}" th:text="${recipe.categoryName}">Category</span>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">
-                        <span>By</span>
-                        <b th:text="${recipe.author}">Chef Name</b>
-                        <span th:text="${recipe.prettyCreateTime}">1 minute ago</span>
-                    </h6>
-                    <div class="mb-2">
-                        <span class="badge bg-primary" th:text="${recipe.difficulty}">MEDIUM</span>
-                        <span class="badge bg-secondary" th:text="${recipe.cookingTime + ' min'}">30 min</span>
-                        <span class="badge bg-success" th:text="${recipe.servingSize + ' servings'}">4 servings</span>
+<header>
+    <div class="container">
+        <h1>Recipe Share</h1>
+        <nav>
+            <ul>
+                <li><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/recipe/new}">Create Recipe</a></li>
+                <li><a th:href="@{/about}">About</a></li>
+            </ul>
+        </nav>
+        <form th:action="@{/search}" method="get" class="search-form">
+            <input type="text" name="query" placeholder="Search recipes">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+</header>
+
+<main class="container">
+    <div class="sidebar">
+        <div class="categories">
+            <h2>Categories</h2>
+            <ul>
+                <li th:each="category : ${categories}">
+                    <a th:href="@{/category/{id}(id=${category.id})}" th:text="${category.name}"></a>
+                    <span class="count" th:text="'(' + ${category.recipeCount} + ')'"></span>
+                </li>
+            </ul>
+            <div class="view-all">
+                <a th:href="@{/categories}">View All Categories</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Latest Recipes</h1>
+
+        <!-- Debugging information -->
+        <div th:if="${recipes.isEmpty()}" style="color: red; margin-bottom: 20px;">
+            No recipes found. Total count in database: <span th:text="${recipeService != null ? recipeService.totalNumberOfRecipes() : 'N/A'}"></span>
+        </div>
+
+        <div class="recipe-grid">
+            <div th:each="recipe : ${recipes}" class="recipe-card">
+                <div class="recipe-image">
+                    <img th:if="${!recipe.images.isEmpty()}" th:src="${recipe.images[0].path}" alt="Recipe Image">
+                    <img th:if="${recipe.images.isEmpty()}" src="/images/default-recipe.jpg" alt="Default Recipe Image">
+                </div>
+                <div class="recipe-info">
+                    <h3>
+                        <a th:href="@{/recipe/{id}(id=${recipe.id})}" th:text="${recipe.title}"></a>
+                    </h3>
+                    <div class="recipe-meta">
+                        <span class="author" th:text="'By ' + ${recipe.author}"></span>
+                        <span class="time" th:text="${recipe.prettyCreateTime}"></span>
+                        <span class="category" th:if="${recipe.categoryName != null}">
+                                <a th:href="@{/category/{id}(id=${recipe.categoryId})}" th:text="${recipe.categoryName}"></a>
+                            </span>
                     </div>
-                    <p class="card-text mb-1">
-                        <img th:if="${recipe.images != null && !recipe.images.isEmpty()}" th:src="@{${recipe.images.get(0).path}}"
-                             class="img-fluid img-thumbnail" alt="Recipe image"/>
-                        <span th:text="${recipe.excerpt}">Recipe excerpt...</span>
-                    </p>
-                    <a th:href="@{/recipe/{id}(id=${recipe.id})}" class="card-link">View Recipe &raquo;</a>
+                    <p th:text="${recipe.excerpt}"></p>
+                    <div class="recipe-footer">
+                            <span class="cooking-time">
+                                <i class="icon-clock"></i>
+                                <span th:text="${recipe.cookingTime} + ' min'"></span>
+                            </span>
+                        <span class="difficulty" th:text="${recipe.difficulty}"></span>
+                        <span class="servings" th:text="${recipe.servingSize} + ' servings'"></span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <nav class="mt-4 d-flex justify-content-center">
-                <ul class="pagination">
-                    <!-- Previous link -->
-                    <li class="page-item" th:classappend="${page == 0} ? 'disabled'">
-                        <a class="page-link" th:href="@{/(page=${page - 1})}"
-                           th:aria-disabled="${page == 0}">Previous</a>
-                    </li>
-                    <!-- Current page number -->
-                    <li class="page-item">
-                        <a href="#" class="page-link disabled" th:text="${page + 1}">1</a>
-                    </li>
-                    <!-- Next link -->
-                    <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
-                        <a class="page-link" th:href="@{/(page=${page + 1})}"
-                           th:aria-disabled="${page == totalPages}">Next</a>
-                    </li>
-                </ul>
-            </nav>
+
+        <div class="pagination" th:if="${totalPages > 1}">
+            <a th:if="${page > 0}" th:href="@{/(page=${page-1})}" class="prev">Previous</a>
+            <span class="current-page" th:text="${page + 1}"></span>
+            <span> of </span>
+            <span th:text="${totalPages}"></span>
+            <a th:if="${page < totalPages - 1}" th:href="@{/(page=${page+1})}" class="next">Next</a>
         </div>
     </div>
-</div>
+</main>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Recipe Share. All rights reserved.</p>
+    </div>
+</footer>
 </body>
 </html>

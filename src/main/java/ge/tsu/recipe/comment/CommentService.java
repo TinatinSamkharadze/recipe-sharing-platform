@@ -2,7 +2,6 @@ package ge.tsu.recipe.comment;
 
 import ge.tsu.recipe.recipe.Recipe;
 import ge.tsu.recipe.recipe.RecipeService;
-import lombok.Data;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,8 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Data
-//@RequiredArgsConstructor
+
 public class CommentService {
 
     private final CommentRepository commentRepository;

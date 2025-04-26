@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "COMMENTS")
-
 public class Comment {
 
     @Id
@@ -36,7 +35,7 @@ public class Comment {
     }
 
     public LocalDateTime getCreateTime() {
-        return null;
+        return createTime; // Fixed from returning null
     }
 
     public Long getId() {

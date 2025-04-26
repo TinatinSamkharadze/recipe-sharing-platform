@@ -55,7 +55,6 @@ public class RecipeService {
         recipe.setServingSize(recipeForm.getServingSize());
         recipe.setDifficulty(recipeForm.getDifficulty());
 
-        // Set category if provided
         if (recipeForm.getCategoryId() != null) {
             Optional<Category> category = categoryRepository.findById(recipeForm.getCategoryId());
             category.ifPresent(recipe::setCategory);
@@ -63,7 +62,6 @@ public class RecipeService {
 
         recipe = recipeRepository.save(recipe);
 
-        // Save image files
         if (imageFiles != null && !imageFiles.isEmpty()) {
             List<Image> images = new ArrayList<>();
             for (MultipartFile imageFile : imageFiles) {

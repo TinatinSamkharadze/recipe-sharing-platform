@@ -1,9 +1,7 @@
 package ge.tsu.recipe.category;
 
-import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
-@Data
 public class CategoryDTO {
     private Long id;
 

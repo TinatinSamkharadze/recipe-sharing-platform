@@ -54,7 +54,7 @@ public class Recipe {
     private Integer servingSize;
 
     @Column(name = "DIFFICULTY", nullable = false)
-    private String difficulty; // EASY, MEDIUM, HARD
+    private String difficulty;
 
     @Column(name = "EXCERPT", nullable = false)
     private String excerpt;

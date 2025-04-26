@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-//@RequiredArgsConstructor
 public class SearchController {
 
     private final RecipeService recipeService;

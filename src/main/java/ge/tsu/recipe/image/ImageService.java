@@ -34,24 +34,20 @@ public class ImageService {
 
     @Transactional
     public String saveImageFile(MultipartFile file) {
-        // Create upload directory if it doesn't exist
         try {
             Path uploadPath = Paths.get(uploadDir);
             if (!Files.exists(uploadPath)) {
                 Files.createDirectories(uploadPath);
             }
 
-            // Generate unique filename
             String originalFilename = file.getOriginalFilename();
             String fileExtension = originalFilename != null ?
                     originalFilename.substring(originalFilename.lastIndexOf(".")) : ".jpg";
             String newFilename = UUID.randomUUID().toString() + fileExtension;
 
-            // Save file to disk
             Path filePath = uploadPath.resolve(newFilename);
             Files.copy(file.getInputStream(), filePath);
 
-            // Return path relative to static resources for serving images
             return "/uploads/" + newFilename;
         } catch (IOException e) {
             throw new RuntimeException("Failed to store image file", e);
@@ -63,17 +59,14 @@ public class ImageService {
         Image image = imageRepository.findById(imageId)
                 .orElseThrow(() -> new RuntimeException("Image not found with id: " + imageId));
 
-        // Delete the actual file
         try {
             Path filePath = Paths.get(uploadDir).resolve(
                     Paths.get(image.getPath()).getFileName().toString());
             Files.deleteIfExists(filePath);
         } catch (IOException e) {
-            // Log error but continue with database deletion
             System.err.println("Could not delete file: " + e.getMessage());
         }
 
-        // Delete database entry
         imageRepository.delete(image);
     }
 }

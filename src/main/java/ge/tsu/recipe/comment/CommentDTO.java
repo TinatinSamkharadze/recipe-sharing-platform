@@ -16,13 +16,25 @@ public class CommentDTO {
     private String prettyCreateTime;
 
     public static CommentDTO fromComment(Comment comment) {
-        return null;
+        CommentDTO dto = new CommentDTO();
+        BeanUtils.copyProperties(comment, dto);
+
+        if (comment.getCreateTime() != null) {
+            dto.setPrettyCreateTime(formatPrettyTime(comment.getCreateTime()));
+        }
+
+        return dto;
     }
 
-    private void setPrettyCreateTime(String s) {
+    public void setPrettyCreateTime(String prettyTime) {
+        this.prettyCreateTime = prettyTime;
     }
 
     private static String formatPrettyTime(LocalDateTime time) {
+        if (time == null) {
+            return "unknown time";
+        }
+
         LocalDateTime now = LocalDateTime.now();
         long minutes = ChronoUnit.MINUTES.between(time, now);
 

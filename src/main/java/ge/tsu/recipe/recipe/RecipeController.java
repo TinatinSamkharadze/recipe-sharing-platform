@@ -15,7 +15,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
-//@RequiredArgsConstructor
 public class RecipeController {
 
     private final RecipeService recipeService;

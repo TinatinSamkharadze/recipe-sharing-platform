@@ -26,11 +26,19 @@ public class HomeController {
     public String index(Pageable pageable, Model model) {
         // Override sorting logic!
         Sort sort = Sort.by(Sort.Order.by("createTime").with(Sort.Direction.DESC));
-        pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        // Set default page size if not specified
+        int pageSize = pageable.getPageSize() > 0 ? pageable.getPageSize() : 10;
+        pageable = PageRequest.of(pageable.getPageNumber(), pageSize, sort);
+
         model.addAttribute("recipes", recipeService.getAllRecipes(pageable));
         model.addAttribute("categories", categoryService.getAllCategories());
         model.addAttribute("page", pageable.getPageNumber());
-        model.addAttribute("totalPages", recipeService.totalNumberOfRecipes() / pageable.getPageSize());
+
+        // Fix pagination calculation
+        long totalRecipes = recipeService.totalNumberOfRecipes();
+        int totalPages = pageSize > 0 ? (int) Math.ceil((double) totalRecipes / pageSize) : 0;
+        model.addAttribute("totalPages", totalPages);
+
         return "index";
     }
 }

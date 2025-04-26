@@ -11,10 +11,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 //@RequiredArgsConstructor
 public class SupplyDummyDataOnStartup implements CommandLineRunner {
+
+    private static final Logger logger = Logger.getLogger(SupplyDummyDataOnStartup.class.getName());
 
     private final CategoryRepository categoryRepository;
     private final RecipeRepository recipeRepository;
@@ -28,16 +31,24 @@ public class SupplyDummyDataOnStartup implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) {
+        // Log before checking the database
+        logger.info("Checking if we need to load dummy data...");
+
         // Only add data if the database is empty
         if (categoryRepository.count() > 0) {
+            logger.info("Database already contains categories. Skipping dummy data creation.");
             return;
         }
 
+        logger.info("Loading dummy data into database...");
+
         // Create categories
         List<Category> categories = createCategories();
+        logger.info("Created " + categories.size() + " categories");
 
         // Create recipes
-        createRecipes(categories);
+        List<Recipe> recipes = createRecipes(categories);
+        logger.info("Created " + recipes.size() + " recipes");
     }
 
     private List<Category> createCategories() {
@@ -60,7 +71,7 @@ public class SupplyDummyDataOnStartup implements CommandLineRunner {
         return categoryRepository.saveAll(Arrays.asList(breakfast, lunch, dinner, dessert));
     }
 
-    private void createRecipes(List<Category> categories) {
+    private List<Recipe> createRecipes(List<Category> categories) {
         // Breakfast recipe
         Recipe pancakes = new Recipe();
         pancakes.setTitle("Fluffy Pancakes");
@@ -94,6 +105,6 @@ public class SupplyDummyDataOnStartup implements CommandLineRunner {
         chocolateCake.setDifficulty("MEDIUM");
         chocolateCake.setCategory(categories.get(3)); // Dessert
 
-        recipeRepository.saveAll(Arrays.asList(pancakes, pasta, chocolateCake));
+        return recipeRepository.saveAll(Arrays.asList(pancakes, pasta, chocolateCake));
     }
 }
