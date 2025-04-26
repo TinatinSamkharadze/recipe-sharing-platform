@@ -17,6 +17,22 @@ import java.util.List;
 @Getter
 @Setter
 public class Recipe {
+
+
+    public Recipe(String title, String description, String ingredients, String instructions, String author) {
+        this.title = title;
+        this.description = description;
+        this.ingredients = ingredients;
+        this.instructions = instructions;
+        this.author = author;
+
+    }
+
+
+    public Recipe() {
+
+    }
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -44,11 +60,15 @@ public class Recipe {
     private String ingredients;
 
     @Lob
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
+
+    @Lob
     @Column(name = "INSTRUCTIONS", nullable = false)
     private String instructions;
 
     @Column(name = "COOKING_TIME", nullable = false)
-    private Integer cookingTime; // in minutes
+    private Integer cookingTime;
 
     @Column(name = "SERVING_SIZE", nullable = false)
     private Integer servingSize;
@@ -173,5 +193,13 @@ public class Recipe {
 
     public List<Comment> getComments() {
         return comments;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

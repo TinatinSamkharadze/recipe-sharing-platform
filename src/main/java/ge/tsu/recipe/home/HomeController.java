@@ -1,44 +1,20 @@
 package ge.tsu.recipe.home;
 
-import ge.tsu.recipe.category.CategoryService;
-import ge.tsu.recipe.recipe.RecipeService;
+import ge.tsu.recipe.recipe.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-//@RequiredArgsConstructor
 public class HomeController {
 
-    private final RecipeService recipeService;
-    private final CategoryService categoryService;
-
     @Autowired
-    public HomeController(RecipeService recipeService, CategoryService categoryService) {
-        this.recipeService = recipeService;
-        this.categoryService = categoryService;
-    }
+    private RecipeRepository recipeRepository;
+
     @GetMapping("/")
-    public String index(Pageable pageable, Model model) {
-        // Override sorting logic!
-        Sort sort = Sort.by(Sort.Order.by("createTime").with(Sort.Direction.DESC));
-        // Set default page size if not specified
-        int pageSize = pageable.getPageSize() > 0 ? pageable.getPageSize() : 10;
-        pageable = PageRequest.of(pageable.getPageNumber(), pageSize, sort);
-
-        model.addAttribute("recipes", recipeService.getAllRecipes(pageable));
-        model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("page", pageable.getPageNumber());
-
-        // Fix pagination calculation
-        long totalRecipes = recipeService.totalNumberOfRecipes();
-        int totalPages = pageSize > 0 ? (int) Math.ceil((double) totalRecipes / pageSize) : 0;
-        model.addAttribute("totalPages", totalPages);
-
-        return "index";
+    public String home(Model model) {
+        model.addAttribute("recipes", recipeRepository.findAll());
+        return "home";
     }
 }

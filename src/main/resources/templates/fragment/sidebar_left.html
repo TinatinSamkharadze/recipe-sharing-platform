@@ -8,20 +8,17 @@
 <div th:fragment="sidebar" class="mb-4">
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Categories</h5>
+            <h5 class="mb-0">Navigation</h5>
         </div>
         <div class="list-group list-group-flush">
-            <!-- Add this link right here, before the individual category links -->
-            <a th:href="@{/categories}" class="list-group-item list-group-item-action fw-bold">
-                View All Categories
+            <a th:href="@{/}" class="list-group-item list-group-item-action">
+                <i class="bi bi-house-door me-2"></i>Home
             </a>
-
-            <!-- Your existing category links -->
-            <a th:href="@{/category/{id}(id=${category.id})}"
-               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center"
-               th:each="category : ${categories}">
-                <span th:text="${category.name}">Category Name</span>
-                <span class="badge bg-primary rounded-pill" th:text="${category.recipeCount}">0</span>
+            <a th:href="@{/recipe/new}" class="list-group-item list-group-item-action">
+                <i class="bi bi-plus-circle me-2"></i>Add New Recipe
+            </a>
+            <a th:href="@{/about}" class="list-group-item list-group-item-action">
+                <i class="bi bi-info-circle me-2"></i>About
             </a>
         </div>
     </div>

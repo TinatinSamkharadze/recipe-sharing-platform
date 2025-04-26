@@ -14,10 +14,10 @@ public class TimeFormatter {
             return "just now";
         } else if (minutes < 60) {
             return minutes + " minute" + (minutes > 1 ? "s" : "") + " ago";
-        } else if (minutes < 1440) { // Less than a day
+        } else if (minutes < 1440) {
             long hours = minutes / 60;
             return hours + " hour" + (hours > 1 ? "s" : "") + " ago";
-        } else if (minutes < 10080) { // Less than a week
+        } else if (minutes < 10080) {
             long days = minutes / 1440;
             return days + " day" + (days > 1 ? "s" : "") + " ago";
         } else {

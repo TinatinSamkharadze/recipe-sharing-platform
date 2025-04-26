@@ -35,7 +35,7 @@ public class Comment {
     }
 
     public LocalDateTime getCreateTime() {
-        return createTime; // Fixed from returning null
+        return createTime;
     }
 
     public Long getId() {

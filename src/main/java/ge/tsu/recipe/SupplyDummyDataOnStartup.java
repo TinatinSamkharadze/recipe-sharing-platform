@@ -1,110 +1,53 @@
 package ge.tsu.recipe;
 
-import ge.tsu.recipe.category.Category;
-import ge.tsu.recipe.category.CategoryRepository;
 import ge.tsu.recipe.recipe.Recipe;
 import ge.tsu.recipe.recipe.RecipeRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
-
 @Component
-//@RequiredArgsConstructor
 public class SupplyDummyDataOnStartup implements CommandLineRunner {
 
-    private static final Logger logger = Logger.getLogger(SupplyDummyDataOnStartup.class.getName());
-
-    private final CategoryRepository categoryRepository;
-    private final RecipeRepository recipeRepository;
-
     @Autowired
-    public SupplyDummyDataOnStartup(CategoryRepository categoryRepository, RecipeRepository recipeRepository) {
-        this.categoryRepository = categoryRepository;
-        this.recipeRepository = recipeRepository;
-    }
+    private RecipeRepository recipeRepository;
 
     @Override
-    @Transactional
-    public void run(String... args) {
-        // Log before checking the database
-        logger.info("Checking if we need to load dummy data...");
+    public void run(String... args) throws Exception {
+        if (recipeRepository.count() == 0) {
+            Recipe r1 = new Recipe();
+            r1.setTitle("Spaghetti Bolognese");
+            r1.setDescription("A delicious classic Italian pasta dish with meat sauce.");
+            r1.setIngredients("Spaghetti, ground beef, tomato sauce, onion, garlic, olive oil, herbs");
+            r1.setInstructions("Cook spaghetti. Prepare the sauce by cooking beef with onion and garlic, add tomato sauce and herbs. Combine with pasta.");
+            r1.setAuthor("Chef Luigi");
+            r1.setCookingTime(30);
+            r1.setServingSize(4);
+            r1.setDifficulty("Medium");
 
-        // Only add data if the database is empty
-        if (categoryRepository.count() > 0) {
-            logger.info("Database already contains categories. Skipping dummy data creation.");
-            return;
+            Recipe r2 = new Recipe();
+            r2.setTitle("Chicken Curry");
+            r2.setDescription("A spicy and flavorful chicken curry made with aromatic spices.");
+            r2.setIngredients("Chicken, curry powder, coconut milk, onion, garlic, ginger, spices");
+            r2.setInstructions("Sauté onion, garlic, and ginger. Add chicken and spices. Cook with coconut milk until tender.");
+            r2.setAuthor("Chef Priya");
+            r2.setCookingTime(45);
+            r2.setServingSize(4);
+            r2.setDifficulty("Medium");
+
+            Recipe r3 = new Recipe();
+            r3.setTitle("Pancakes");
+            r3.setDescription("Fluffy homemade pancakes perfect for breakfast.");
+            r3.setIngredients("Flour, milk, eggs, baking powder, sugar, salt, butter");
+            r3.setInstructions("Mix dry ingredients. Add wet ingredients. Cook on griddle until golden brown.");
+            r3.setAuthor("Chef Emily");
+            r3.setCookingTime(20);
+            r3.setServingSize(2);
+            r3.setDifficulty("Easy");
+
+            recipeRepository.save(r1);
+            recipeRepository.save(r2);
+            recipeRepository.save(r3);
         }
-
-        logger.info("Loading dummy data into database...");
-
-        // Create categories
-        List<Category> categories = createCategories();
-        logger.info("Created " + categories.size() + " categories");
-
-        // Create recipes
-        List<Recipe> recipes = createRecipes(categories);
-        logger.info("Created " + recipes.size() + " recipes");
-    }
-
-    private List<Category> createCategories() {
-        Category breakfast = new Category();
-        breakfast.setName("Breakfast");
-        breakfast.setDescription("Morning meals to start your day right");
-
-        Category lunch = new Category();
-        lunch.setName("Lunch");
-        lunch.setDescription("Midday meals that are filling and nutritious");
-
-        Category dinner = new Category();
-        dinner.setName("Dinner");
-        dinner.setDescription("Evening meals to enjoy with family and friends");
-
-        Category dessert = new Category();
-        dessert.setName("Dessert");
-        dessert.setDescription("Sweet treats to end your meal");
-
-        return categoryRepository.saveAll(Arrays.asList(breakfast, lunch, dinner, dessert));
-    }
-
-    private List<Recipe> createRecipes(List<Category> categories) {
-        // Breakfast recipe
-        Recipe pancakes = new Recipe();
-        pancakes.setTitle("Fluffy Pancakes");
-        pancakes.setAuthor("Chef John");
-        pancakes.setIngredients("2 cups all-purpose flour\n1 tablespoon baking powder\n2 tablespoons sugar\n1/2 teaspoon salt\n2 eggs\n1 1/2 cups milk\n2 tablespoons melted butter\n1 teaspoon vanilla extract");
-        pancakes.setInstructions("1. In a large bowl, sift together flour, baking powder, sugar, and salt.\n2. In another bowl, beat the eggs and then add milk, melted butter, and vanilla.\n3. Pour the wet ingredients into the dry ingredients and mix until just combined.\n4. Heat a griddle or frying pan over medium heat. Pour 1/4 cup batter for each pancake.\n5. Cook until bubbles form on the surface, then flip and cook until golden brown.\n6. Serve with maple syrup and fresh berries.");
-        pancakes.setCookingTime(20);
-        pancakes.setServingSize(4);
-        pancakes.setDifficulty("EASY");
-        pancakes.setCategory(categories.get(0)); // Breakfast
-
-        // Dinner recipe
-        Recipe pasta = new Recipe();
-        pasta.setTitle("Spaghetti Carbonara");
-        pasta.setAuthor("Chef Maria");
-        pasta.setIngredients("1 pound spaghetti\n8 ounces pancetta or bacon, diced\n4 garlic cloves, minced\n4 large eggs\n1 cup freshly grated Parmesan cheese\n1 teaspoon black pepper\nSalt to taste\nChopped parsley for garnish");
-        pasta.setInstructions("1. Bring a large pot of salted water to boil. Add spaghetti and cook until al dente.\n2. While pasta cooks, fry the pancetta in a large skillet until crispy.\n3. Add minced garlic to the pancetta and cook for 30 seconds.\n4. In a bowl, whisk together eggs, Parmesan, and black pepper.\n5. Drain pasta, reserving 1/2 cup of pasta water.\n6. Add hot pasta to the skillet with pancetta. Remove from heat.\n7. Quickly stir in the egg mixture, tossing continuously.\n8. Add pasta water as needed to create a creamy sauce.\n9. Season with salt and garnish with parsley before serving.");
-        pasta.setCookingTime(30);
-        pasta.setServingSize(4);
-        pasta.setDifficulty("MEDIUM");
-        pasta.setCategory(categories.get(2)); // Dinner
-
-        // Dessert recipe
-        Recipe chocolateCake = new Recipe();
-        chocolateCake.setTitle("Decadent Chocolate Cake");
-        chocolateCake.setAuthor("Baker Emma");
-        chocolateCake.setIngredients("2 cups all-purpose flour\n2 cups sugar\n3/4 cup unsweetened cocoa powder\n2 teaspoons baking soda\n1 teaspoon salt\n2 eggs\n1 cup buttermilk\n1/2 cup vegetable oil\n2 teaspoons vanilla extract\n1 cup hot coffee");
-        chocolateCake.setInstructions("1. Preheat oven to 350°F (175°C). Grease and flour two 9-inch round cake pans.\n2. In a large bowl, combine flour, sugar, cocoa powder, baking soda, and salt.\n3. Add eggs, buttermilk, oil, and vanilla. Beat on medium speed for 2 minutes.\n4. Stir in hot coffee (batter will be thin).\n5. Pour batter into prepared pans.\n6. Bake for 30-35 minutes or until a toothpick inserted in center comes out clean.\n7. Cool in pans for 10 minutes, then remove to wire racks to cool completely.\n8. Frost with your favorite chocolate frosting.");
-        chocolateCake.setCookingTime(45);
-        chocolateCake.setServingSize(12);
-        chocolateCake.setDifficulty("MEDIUM");
-        chocolateCake.setCategory(categories.get(3)); // Dessert
-
-        return recipeRepository.saveAll(Arrays.asList(pancakes, pasta, chocolateCake));
     }
 }

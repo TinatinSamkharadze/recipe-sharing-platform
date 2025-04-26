@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
+<head>
+    <title>Recipe Sharing Platform - Home</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <h1>Latest Recipes</h1>
+
+    <div th:each="recipe : ${recipes}" class="card mb-3">
+        <div class="card-body">
+            <h2 class="card-title" th:text="${recipe.title}"></h2>
+            <p class="card-text" th:text="${recipe.description}"></p>
+            <p class="text-muted">By: <span th:text="${recipe.author}"></span></p>
+            <a th:href="@{|/recipe/${recipe.id}|}" class="btn btn-primary">View Recipe</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
