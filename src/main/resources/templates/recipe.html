@@ -53,7 +53,6 @@
         </div>
     </div>
 
-    <!-- Comments Section -->
     <div class="card mb-4">
         <div class="card-header">
             <h5>Comments</h5>
@@ -69,7 +68,6 @@
                 <hr th:if="${!commentStat.last}">
             </div>
 
-            <!-- Comment Form -->
             <div class="mt-4">
                 <h6>Add a Comment</h6>
                 <form th:action="@{/recipe/{id}/comment(id=${recipe.id})}" th:object="${commentForm}" method="post">

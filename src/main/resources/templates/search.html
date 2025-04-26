@@ -41,16 +41,13 @@
         <div class="col" th:if="${!recipes.isEmpty()}">
             <nav class="mt-4 d-flex justify-content-center">
                 <ul class="pagination">
-                    <!-- Previous link -->
                     <li class="page-item" th:classappend="${page == 0} ? 'disabled'">
                         <a class="page-link" th:href="@{/search(query=${query}, page=${page - 1})}"
                            th:aria-disabled="${page == 0}">Previous</a>
                     </li>
-                    <!-- Current page number -->
                     <li class="page-item">
                         <a href="#" class="page-link disabled" th:text="${page + 1}">1</a>
                     </li>
-                    <!-- Next link -->
                     <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
                         <a class="page-link" th:href="@{/search(query=${query}, page=${page + 1})}"
                            th:aria-disabled="${page == totalPages}">Next</a>

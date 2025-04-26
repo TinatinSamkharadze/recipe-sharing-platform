@@ -62,7 +62,6 @@
                     </div>
                 </div>
 
-                <!-- Ingredients -->
                 <div class="mb-3">
                     <label for="ingredients" class="form-label">Ingredients</label>
                     <textarea class="form-control" id="ingredients" th:field="*{ingredients}" rows="5" required
@@ -70,7 +69,6 @@
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></div>
                 </div>
 
-                <!-- Instructions -->
                 <div class="mb-3">
                     <label for="instructions" class="form-label">Instructions</label>
                     <textarea class="form-control" id="instructions" th:field="*{instructions}" rows="10" required
@@ -78,7 +76,6 @@
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></div>
                 </div>
 
-                <!-- Image Upload -->
                 <div class="mb-3">
                     <label for="images" class="form-label">Images</label>
                     <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple>
