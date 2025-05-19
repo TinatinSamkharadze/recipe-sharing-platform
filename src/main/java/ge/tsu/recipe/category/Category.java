@@ -2,12 +2,12 @@ package ge.tsu.recipe.category;
 
 import ge.tsu.recipe.recipe.Recipe;
 import jakarta.persistence.*;
-import lombok.Data;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
 @Entity
 @Table(name = "CATEGORIES")
 

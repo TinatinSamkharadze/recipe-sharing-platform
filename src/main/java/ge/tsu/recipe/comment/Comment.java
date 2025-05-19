@@ -2,11 +2,10 @@ package ge.tsu.recipe.comment;
 
 import ge.tsu.recipe.recipe.Recipe;
 import jakarta.persistence.*;
-import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Data
+
 @Entity
 @Table(name = "COMMENTS")
 public class Comment {

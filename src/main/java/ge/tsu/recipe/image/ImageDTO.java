@@ -1,9 +1,7 @@
 package ge.tsu.recipe.image;
 
-import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
-@Data
 public class ImageDTO {
     private Long id;
     private String path;

@@ -2,13 +2,10 @@ package ge.tsu.recipe.image;
 
 import ge.tsu.recipe.recipe.Recipe;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @Table(name = "IMAGES")
-@Getter
-@Setter
+
 public class Image {
 
     @Id

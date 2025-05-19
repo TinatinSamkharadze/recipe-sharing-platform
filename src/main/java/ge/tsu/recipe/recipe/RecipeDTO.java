@@ -3,7 +3,6 @@ package ge.tsu.recipe.recipe;
 import ge.tsu.recipe.comment.CommentDTO;
 import ge.tsu.recipe.image.ImageDTO;
 import ge.tsu.recipe.util.TimeFormatter;
-import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Data
 public class RecipeDTO {
     private Long id;
     private String title;

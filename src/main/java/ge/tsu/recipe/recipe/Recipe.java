@@ -4,8 +4,7 @@ import ge.tsu.recipe.category.Category;
 import ge.tsu.recipe.comment.Comment;
 import ge.tsu.recipe.image.Image;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;
@@ -14,8 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "RECIPES")
-@Getter
-@Setter
+
 public class Recipe {
 
 

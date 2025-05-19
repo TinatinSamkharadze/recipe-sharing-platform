@@ -1,13 +1,11 @@
 package ge.tsu.recipe.comment;
 
-import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
-@Data
 public class CommentDTO {
     private Long id;
     private String author;
