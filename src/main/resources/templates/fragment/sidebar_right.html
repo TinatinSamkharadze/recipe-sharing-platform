@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Right Sidebar</title>
@@ -8,17 +8,25 @@
 <div th:fragment="sidebar" class="mb-4">
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Quick Links</h5>
+            <h5 class="mb-0" th:text="#{sidebar.right.quickLinks}">Quick Links</h5>
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <a th:href="@{/recipe/new}" class="text-decoration-none">Add New Recipe</a>
+                    <a th:href="@{/recipe/new}" class="text-decoration-none" th:text="#{sidebar.right.addRecipe}">Add New Recipe</a>
                 </li>
                 <li class="list-group-item">
-                    <a th:href="@{/about}" class="text-decoration-none">About Us</a>
+                    <a th:href="@{/about}" class="text-decoration-none" th:text="#{sidebar.right.aboutUs}">About Us</a>
                 </li>
             </ul>
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">
+            <h5 class="mb-0" th:text="#{sidebar.right.tips}">Cooking Tips</h5>
+        </div>
+        <div class="card-body">
+            <p th:text="#{sidebar.right.tipContent}">Share your favorite recipes with detailed instructions and quality images to help others recreate your delicious dishes!</p>
         </div>
     </div>
 </div>
