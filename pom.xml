@@ -23,6 +23,8 @@
         <thymeleaf-layout-dialect.version>3.4.0</thymeleaf-layout-dialect.version>
         <prettytime.version>5.0.9.Final</prettytime.version>
         <javafaker.version>1.0.2</javafaker.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
     <dependencies>

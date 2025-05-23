@@ -1,15 +1,19 @@
 <!DOCTYPE html>
-<html lang="en"
+<html th:lang="${#locale.language}"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html}">
 <head>
-    <title>Search Results</title>
+    <title th:text="#{search.title}">Search Results</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h2>Search Results for: <span th:text="${query}">search term</span></h2>
+    <h2>
+        <span th:text="#{search.resultsFor}">Search Results for:</span>
+        <span th:text="${query}">search term</span>
+    </h2>
 
-    <div th:if="${recipes.isEmpty()}" class="alert alert-info mt-3">
+    <div th:if="${recipes.isEmpty()}" class="alert alert-info mt-3" th:text="#{search.noResults}">
         No results found for your search. Try different keywords.
     </div>
 
@@ -20,21 +24,21 @@
                     <h5 class="card-title" th:text="${recipe.title}">Recipe Title</h5>
                     <span class="badge bg-info mb-2" th:if="${recipe.categoryName != null}" th:text="${recipe.categoryName}">Category</span>
                     <h6 class="card-subtitle mb-2 text-body-secondary">
-                        <span>By</span>
+                        <span th:text="#{recipe.by}">By</span>
                         <b th:text="${recipe.author}">Chef Name</b>
                         <span th:text="${recipe.prettyCreateTime}">1 minute ago</span>
                     </h6>
                     <div class="mb-2">
                         <span class="badge bg-primary" th:text="${recipe.difficulty}">MEDIUM</span>
-                        <span class="badge bg-secondary" th:text="${recipe.cookingTime + ' min'}">30 min</span>
-                        <span class="badge bg-success" th:text="${recipe.servingSize + ' servings'}">4 servings</span>
+                        <span class="badge bg-secondary" th:text="${recipe.cookingTime + ' ' + #{recipe.minutes}}">30 min</span>
+                        <span class="badge bg-success" th:text="${recipe.servingSize + ' ' + #{recipe.servings}}">4 servings</span>
                     </div>
                     <p class="card-text mb-1">
                         <img th:if="${recipe.images != null && !recipe.images.isEmpty()}" th:src="@{${recipe.images.get(0).path}}"
-                             class="img-fluid img-thumbnail" alt="Recipe image"/>
+                             class="img-fluid img-thumbnail" th:alt="#{recipe.image}"/>
                         <span th:text="${recipe.excerpt}">Recipe excerpt...</span>
                     </p>
-                    <a th:href="@{/recipe/{id}(id=${recipe.id})}" class="card-link">View Recipe &raquo;</a>
+                    <a th:href="@{/recipe/{id}(id=${recipe.id})}" class="card-link" th:text="#{search.viewRecipe}">View Recipe &raquo;</a>
                 </div>
             </div>
         </div>
@@ -43,14 +47,14 @@
                 <ul class="pagination">
                     <li class="page-item" th:classappend="${page == 0} ? 'disabled'">
                         <a class="page-link" th:href="@{/search(query=${query}, page=${page - 1})}"
-                           th:aria-disabled="${page == 0}">Previous</a>
+                           th:aria-disabled="${page == 0}" th:text="#{search.previous}">Previous</a>
                     </li>
                     <li class="page-item">
                         <a href="#" class="page-link disabled" th:text="${page + 1}">1</a>
                     </li>
                     <li class="page-item" th:classappend="${page == totalPages - 1} ? 'disabled'">
                         <a class="page-link" th:href="@{/search(query=${query}, page=${page + 1})}"
-                           th:aria-disabled="${page == totalPages}">Next</a>
+                           th:aria-disabled="${page == totalPages}" th:text="#{search.next}">Next</a>
                     </li>
                 </ul>
             </nav>

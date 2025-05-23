@@ -1,35 +1,35 @@
 <!DOCTYPE html>
-<html lang="en"
+<html th:lang="${#locale.language}"
+      xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html}">
 <head>
-    <title>Create New Recipe</title>
+    <title th:text="#{recipe.new.title}">Create New Recipe</title>
 </head>
 <body>
 <div layout:fragment="content">
-    <h1>Create New Recipe</h1>
+    <h1 th:text="#{recipe.new.heading}">Create New Recipe</h1>
 
     <form th:action="@{/recipe/new}" th:object="${recipeForm}" method="post" enctype="multipart/form-data">
         <div class="card mb-4">
             <div class="card-body">
-                <!-- Basic Recipe Information -->
                 <div class="mb-3">
-                    <label for="title" class="form-label">Recipe Title</label>
+                    <label for="title" class="form-label" th:text="#{recipe.new.title.label}">Recipe Title</label>
                     <input type="text" class="form-control" id="title" th:field="*{title}" required>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="author" class="form-label">Author</label>
+                    <label for="author" class="form-label" th:text="#{recipe.new.author}">Author</label>
                     <input type="text" class="form-control" id="author" th:field="*{author}" required>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-4 mb-3">
-                        <label for="category" class="form-label">Category</label>
+                        <label for="category" class="form-label" th:text="#{recipe.new.category}">Category</label>
                         <select class="form-select" id="category" th:field="*{categoryId}">
-                            <option value="">Select Category</option>
+                            <option value="" th:text="#{recipe.new.selectCategory}">Select Category</option>
                             <option th:each="category : ${categories}"
                                     th:value="${category.id}"
                                     th:text="${category.name}">Category Name</option>
@@ -37,9 +37,9 @@
                     </div>
 
                     <div class="col-md-4 mb-3">
-                        <label for="difficulty" class="form-label">Difficulty</label>
+                        <label for="difficulty" class="form-label" th:text="#{recipe.new.difficulty}">Difficulty</label>
                         <select class="form-select" id="difficulty" th:field="*{difficulty}" required>
-                            <option value="">Select Difficulty</option>
+                            <option value="" th:text="#{recipe.new.selectDifficulty}">Select Difficulty</option>
                             <option th:each="level : ${difficultyLevels}"
                                     th:value="${level}"
                                     th:text="${level}">Difficulty Level</option>
@@ -50,42 +50,42 @@
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="cookingTime" class="form-label">Cooking Time (minutes)</label>
+                        <label for="cookingTime" class="form-label" th:text="#{recipe.new.cookingTime}">Cooking Time (minutes)</label>
                         <input type="number" class="form-control" id="cookingTime" th:field="*{cookingTime}" min="1" required>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('cookingTime')}" th:errors="*{cookingTime}"></div>
                     </div>
 
                     <div class="col-md-6 mb-3">
-                        <label for="servingSize" class="form-label">Serving Size</label>
+                        <label for="servingSize" class="form-label" th:text="#{recipe.new.servingSize}">Serving Size</label>
                         <input type="number" class="form-control" id="servingSize" th:field="*{servingSize}" min="1" required>
                         <div class="invalid-feedback" th:if="${#fields.hasErrors('servingSize')}" th:errors="*{servingSize}"></div>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="ingredients" class="form-label">Ingredients</label>
+                    <label for="ingredients" class="form-label" th:text="#{recipe.new.ingredients}">Ingredients</label>
                     <textarea class="form-control" id="ingredients" th:field="*{ingredients}" rows="5" required
-                              placeholder="Enter each ingredient on a new line"></textarea>
+                              th:placeholder="#{recipe.new.ingredientsPlaceholder}"></textarea>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('ingredients')}" th:errors="*{ingredients}"></div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="instructions" class="form-label">Instructions</label>
+                    <label for="instructions" class="form-label" th:text="#{recipe.new.instructions}">Instructions</label>
                     <textarea class="form-control" id="instructions" th:field="*{instructions}" rows="10" required
-                              placeholder="Enter step-by-step instructions"></textarea>
+                              th:placeholder="#{recipe.new.instructionsPlaceholder}"></textarea>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('instructions')}" th:errors="*{instructions}"></div>
                 </div>
 
                 <div class="mb-3">
-                    <label for="images" class="form-label">Images</label>
+                    <label for="images" class="form-label" th:text="#{recipe.new.images}">Images</label>
                     <input type="file" class="form-control" id="images" name="images" accept="image/*" multiple>
-                    <div class="form-text">Upload one or more images of your recipe (optional)</div>
+                    <div class="form-text" th:text="#{recipe.new.imagesHelp}">Upload one or more images of your recipe (optional)</div>
                 </div>
             </div>
 
             <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Save Recipe</button>
-                <a th:href="@{/}" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary" th:text="#{recipe.new.saveButton}">Save Recipe</button>
+                <a th:href="@{/}" class="btn btn-secondary" th:text="#{recipe.new.cancelButton}">Cancel</a>
             </div>
         </div>
     </form>

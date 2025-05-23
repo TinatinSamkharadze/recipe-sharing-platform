@@ -26,3 +26,4 @@ server:
 app:
   upload:
     dir: ${user.home}/recipe-uploads
+

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html th:lang="${#locale.language}" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Left Sidebar</title>
@@ -8,24 +8,32 @@
 <div th:fragment="sidebar" class="mb-4">
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Navigation</h5>
+            <h5 class="mb-0" th:text="#{sidebar.navigation}">Navigation</h5>
         </div>
         <div class="list-group list-group-flush">
             <a th:href="@{/}" class="list-group-item list-group-item-action">
-                <i class="bi bi-house-door me-2"></i>Home
+                <i class="bi bi-house-door me-2"></i><span th:text="#{sidebar.home}">Home</span>
             </a>
             <a th:href="@{/recipe/new}" class="list-group-item list-group-item-action">
-                <i class="bi bi-plus-circle me-2"></i>Add New Recipe
+                <i class="bi bi-plus-circle me-2"></i><span th:text="#{sidebar.addRecipe}">Add New Recipe</span>
             </a>
             <a th:href="@{/about}" class="list-group-item list-group-item-action">
-                <i class="bi bi-info-circle me-2"></i>About
+                <i class="bi bi-info-circle me-2"></i><span th:text="#{sidebar.about}">About</span>
             </a>
             <a th:href="@{/register}" class="list-group-item list-group-item-action">
-                <i class="bi bi-person-plus me-2"></i>Register
+                <i class="bi bi-person-plus me-2"></i><span th:text="#{sidebar.register}">Register</span>
             </a>
             <a th:href="@{/login}" class="list-group-item list-group-item-action">
-                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+                <i class="bi bi-box-arrow-in-right me-2"></i><span th:text="#{sidebar.login}">Login</span>
             </a>
+        </div>
+        <div class="card-footer">
+            <h6 class="mb-2" th:text="#{sidebar.language}">Language</h6>
+            <div class="btn-group" role="group" aria-label="Language selection">
+                <a th:href="@{''(lang=en)}" class="btn btn-outline-secondary btn-sm">English</a>
+                <a th:href="@{''(lang=fr)}" class="btn btn-outline-secondary btn-sm">Français</a>
+                <a th:href="@{''(lang=es)}" class="btn btn-outline-secondary btn-sm">Español</a>
+            </div>
         </div>
     </div>
 </div>
