@@ -29,7 +29,7 @@ class AboutControllerTest {
 
     @BeforeEach
     void setUp() {
-        // app.version property-ის მნიშვნელობის დაყენება
+
         ReflectionTestUtils.setField(aboutController, "appVersion", "1.0-TEST");
     }
 
